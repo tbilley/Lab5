@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Lab 5</title>	
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">	
+<style>
+	.intro{
+		min-width: 100%;
+		height: 150px;
+
+		background: #EFEFEF;
+		border-radius: 10px 10px 0px 0px;
+		text-align: center;
+		padding-bottom: 30px;
+	}
+	
+	.intro h1{
+		padding-top: 30px;
+	}
+	
+	
+
+.removeitem {
+  float: right;
+  
+}
+
+	
+body {
+  margin: 0;
+  min-width: 250px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  cursor: pointer;
+  position: relative;
+  padding: 20px;
+  list-style-type: none;
+  background: #A9DCFA;
+  font-size: 18px;
+
+}
+
+ul li:nth-child(odd) {
+  background: #DAF0FD;
+}
+
+
+ul li.clicked {
+  text-decoration: line-through;
+  text-decoration-color: white;
+}
+
+	
+.header {
+  background-color: #0B2D41;
+  padding: 30px 40px;
+  text-align: center;
+}
+
+
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+input {
+  margin: 0;
+  border: none;
+  border-radius: 50px 0px 0px 50px;
+  width: 50%;
+  padding: 10px;
+  float: center;
+  font-size: 16px;
+}
+
+
+.addBtn {
+  background: #C7C7C7;
+  color: #000000;
+  float: center;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+	border-radius: 0px 50px 50px 0px;
+}
+
+
+</style>
+</head>
+<body>
+
+	
+	<div class="intro">
+		<h1>Tiffany Billey</h1>
+		<p>Welcome to your "To Do List" where you can create and read tasks, cross them out by clicking on it, and delete them by clicking on the "X".</p>
+	</div>
+	
+	
+	
+<div id="inputheader" class="header">
+  <input type="text" id="listitem" placeholder="Add something to your to-do list">
+  <span onclick="newElement()" class="addBtn"><i class="fa fa-plus"></i> Add </span>
+</div>
+
+<ul id="todolist">
+  
+</ul>
+
+<script>
+	
+	//Delete
+	
+var myNodelist = document.getElementsByTagName("LI");
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "removeitem";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
+	
+var removeitem = document.getElementsByClassName("removeitem");
+var i;
+for (i = 0; i < removeitem.length; i++) {
+  removeitem[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+	
+	
+	
+	let todolist = JSON.parse(localStorage.getItem('todolist')) || [];
+
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('clicked');
+  }
+}, false);
+
+
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("listitem").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+    alert("Please add something to your list"); 
+  } else {
+    document.getElementById("todolist").appendChild(li);
+	  todolist.push(listitem);
+	localStorage.setItem('todoList', JSON.stringify(todolist));
+  }
+  document.getElementById("listitem").value = "";
+	
+	
+	var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "removeitem";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+	//delete on click
+  for (i = 0; i < removeitem.length; i++) {
+    removeitem[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
+	
+}
+	
+	
+	
+</script>
+
+</body>
+</html>
